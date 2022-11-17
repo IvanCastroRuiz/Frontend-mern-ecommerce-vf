@@ -10,7 +10,9 @@ const AuthProvider = ({children}) =>{
 
     useEffect(()=>{
         const autenticarUsuario = async () =>{
+
             const token = localStorage.getItem('token');
+            
             if(!token){
                 setCargando(false);
                 return;
@@ -25,7 +27,7 @@ const AuthProvider = ({children}) =>{
             try {
                 const { data } = await clienteAxios('/usuarios/perfil', config);
                 setAuth(data);
-                console.log(data);
+                // console.log(data);
                 console.log(auth);
                 setCargando(false);
             } catch (error) {
@@ -87,7 +89,7 @@ const AuthProvider = ({children}) =>{
             const url = '/usuarios/actualizar-password'
 
             const { data } = await clienteAxios.put(url, datos, config)
-            console.log(data) 
+            // console.log(data) 
 
             return {
                 msg: data.msg
