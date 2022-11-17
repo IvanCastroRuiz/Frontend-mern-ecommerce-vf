@@ -132,7 +132,7 @@ const Registro = () => {
                             />
                         </div>
                         <div className='mb-5'>
-                            <label htmlFor="web" className='font-medium'>Direccion</label>
+                            <label htmlFor="web" className='font-medium'>Web</label>
                             <input 
                                 type="text" 
                                 id="web" 
