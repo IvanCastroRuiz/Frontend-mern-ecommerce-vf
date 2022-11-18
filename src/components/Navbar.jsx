@@ -17,7 +17,7 @@ const Navbar = ({ texto, ruta, id, perfil }) => {
         <div className='flex gap-3'>
           
           <button type='button' className={`${perfil && 'w-0'}bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors`}>
-            <Link to={`/perfil/${id}`} className='p-2 text-center w-full flex'>Perfil</Link>
+            <Link to={`/perfil`} className='p-2 text-center w-full flex'>Perfil</Link>
           </button>
           {/* <button type='button' className='bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors'>
             <Link to={`/productos/${ruta}`} className='p-2 text-center w-full flex'>{texto}</Link>
@@ -35,7 +35,7 @@ const Navbar = ({ texto, ruta, id, perfil }) => {
             <input type="search" placeholder='Buscar Producto' className='my-3 p-3 h-10 rounded-lg border-2' />
             <br />
             <button type='button' className={`${perfil ? 'w-0 h-0' : 'bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors'}`}>
-            <Link to={`/perfil/${id}`} className={`${perfil ? 'w-0 p-0 text-0' : 'p-2 text-center w-full flex'} `}>{!perfil && 'perfil'}</Link>
+            <Link to={`/perfil`} className={`${perfil ? 'w-0 p-0 text-0' : 'p-2 text-center w-full flex'} `}>{!perfil && 'perfil'}</Link>
           </button>
             {/* <button type='button' className='bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors'>
               <Link to={`/productos/${ruta}`} className='p-2 w-full flex justify-center'>{texto}</Link>

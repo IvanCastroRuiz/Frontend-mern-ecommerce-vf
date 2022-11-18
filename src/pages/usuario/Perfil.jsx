@@ -1,18 +1,44 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import useAuth from '../../hooks/useAuth'
+import Alerta from "../../components/Alerta";
+
 import Navbar from "../../components/Navbar";
 
 const Perfil = () => {
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [web, setWeb] = useState("");
-  const [telefono, setTelefono] = useState("");
+
+
+  const { auth, actualizarPerfil } = useAuth()
+  const [ perfil, setPerfil] = useState({})
+  const [ alerta, setAlerta] = useState({})
+
+  useEffect( () => {
+    setPerfil(auth.usuario)
+    console.log(auth);
+  }, [auth])
 
   const [verVerfil, setVerPerfil] = useState(false);
 
   useEffect(()=>setVerPerfil(true),[])
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    const { nombre, email } = perfil
+    if([nombre, email].includes('')) {
+        setAlerta({
+            msg: 'Email y Nombre son obligatorios',
+            error: true
+        })
+        return
+    }
+
+    const resultado = await actualizarPerfil(perfil)
+
+    setAlerta(resultado)
+  }
+
+  const { msg } = alerta
 
   return (
     <>
@@ -34,7 +60,13 @@ const Perfil = () => {
               </Link>
             </button>
           </div>
-          <form className="p-4 mx-auto w-96 sm:px-9 mt-8 shadow-md">
+
+          {msg && <Alerta alerta={alerta} />}
+
+          <form 
+            className="p-4 mx-auto w-96 sm:px-9 mt-8 shadow-md"
+            onSubmit={handleSubmit}
+          >
             <div className="mb-5">
               <label htmlFor="nombre" className="font-medium">
                 Nombre
@@ -44,8 +76,11 @@ const Perfil = () => {
                 id="nombre"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="ej: Juan David Ariza Torres"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                value={perfil.nombre || ''}
+                onChange={ e => setPerfil({
+                    ...perfil, 
+                    [e.target.name] : e.target.value
+                })}
               />
             </div>
             <div className="mb-5">
@@ -57,8 +92,11 @@ const Perfil = () => {
                 id="email"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="ej: correo@correo.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={perfil.email || ''}
+                onChange={ e => setPerfil({
+                    ...perfil, 
+                    [e.target.name] : e.target.value
+                })}
               />
             </div>
             <div className="mb-5">
@@ -70,8 +108,11 @@ const Perfil = () => {
                 id="direccion"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="ej: Calle 12 #34-56"
-                value={direccion}
-                onChange={(e) => setDireccion(e.target.value)}
+                value={perfil.direccion || ''}
+                onChange={ e => setPerfil({
+                    ...perfil, 
+                    [e.target.name] : e.target.value
+                })}
               />
             </div>
             <div className="mb-5">
@@ -83,8 +124,11 @@ const Perfil = () => {
                 id="web"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="ej: www.MiWebSite.com"
-                value={web}
-                onChange={(e) => setWeb(e.target.value)}
+                value={perfil.web || ''}
+                onChange={ e => setPerfil({
+                    ...perfil, 
+                    [e.target.name] : e.target.value
+                })}
               />
             </div>
             <div className="mb-5">
@@ -96,8 +140,11 @@ const Perfil = () => {
                 id="telefono"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="ej: 300123456"
-                value={telefono}
-                onChange={(e) => setTelefono(e.target.value)}
+                value={perfil.telefono || ''}
+                onChange={ e => setPerfil({
+                    ...perfil, 
+                    [e.target.name] : e.target.value
+                })}
               />
             </div>
 
