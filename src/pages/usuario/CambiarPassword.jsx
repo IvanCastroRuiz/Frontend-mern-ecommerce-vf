@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth';
 
 import Navbar from "../../components/Navbar";
 
-const NuevoPassword = () => {
+const CambiarPassword = () => {
     
   const { guardarPassword } = useAuth()
 
@@ -114,4 +114,4 @@ const NuevoPassword = () => {
   );
 };
 
-export default NuevoPassword;
+export default CambiarPassword;
