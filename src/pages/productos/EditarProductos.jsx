@@ -14,7 +14,7 @@ const EditarProductos = ({ id, setModalEditar }) => {
   return (
     <div className='flex justify-center bg-slate-500 absolute w-full h-screen top-0 bg-opacity-60'>
       <div className='h-full w-5/6'>
-        <div className='w-full py-5 flex items-center h-full'>
+        <div className='w-full py-5 flex items-center h-full mt-24'>
           <form className='px-5 mx-auto py-5 sm:px-9 sm:w-5/6 md:w-4/5 lg:w-3/4 shadow-lg bg-white rounded-xl'>
 
             <button onClick={e => setModalEditar(false)} className='text-black font-bold bg-white text-xl p-4 flex float-right hover:scale-110 '>X</button>

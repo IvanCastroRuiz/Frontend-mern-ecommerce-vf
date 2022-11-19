@@ -38,7 +38,7 @@ const FormularioProductos = () => {
   return (
     <>
       <Navbar texto="Productos" ruta="" />
-      <div className=" w-full justify-center h-5/6 items-center">
+      <div className=" w-full justify-center h-5/6 items-center mt-24">
         <div className="w-full">
           <h1 className="font-bold text-6xl uppercase text-center w-full mx-auto">
             Registra tus <span className="text-sky-700">productos</span>

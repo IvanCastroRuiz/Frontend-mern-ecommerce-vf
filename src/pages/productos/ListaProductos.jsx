@@ -14,7 +14,7 @@ const ListaProductos = () => {
     
       <Navbar texto="Agregar Producto" ruta="agregar-producto" /> 
       <div className='w-full justify-center h-5/6 max-sm:p-0 md:px-20 lg:px-40'>
-        <div className='w-full flex flex-col items-center'>
+        <div className='w-full flex flex-col items-center mt-24'> 
           <h1 className='font-bold text-5xl uppercase text-center w-full mx-auto mb-10'><span className='text-sky-700'>productos</span> a comprar</h1>
 
           <div className='flex mx-4 gap-5 mb-10 flex-wrap justify-center'>

@@ -46,7 +46,7 @@ const Perfil = () => {
 
       <div className=" w-full h-5/6">
         <div className="w-full flex flex-col">
-          <h1 className="font-bold text-6xl uppercase text-center w-full mx-auto">
+          <h1 className="font-bold text-6xl uppercase text-center w-full mx-auto mt-24">
             Edita tu <span className="text-sky-700">Perfil</span>
           </h1>
           <div className="mx-auto my-5">
