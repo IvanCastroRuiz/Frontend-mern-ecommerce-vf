@@ -1,4 +1,3 @@
-import producto1 from "../../assets/producto.jpg";
 import { NavLink } from "react-router-dom";
 
 const Producto = ({ producto }) => {
@@ -8,9 +7,9 @@ const Producto = ({ producto }) => {
   return (
     <div className="flex flex-col h-1/2 border rounded-lg w-60 bg-white hover:scale-105 overflow-hidden">
 
-                  <NavLink to={`detalle-producto/${_id}`}>
-                    <img src={image.url} alt={nombre} className="h-56 w-96 border-b" />
-                  </NavLink> 
+      <NavLink to={`detalle-producto/${_id}`}>
+        <img src={image.url} alt={nombre} className="h-56 w-96 border-b" />
+      </NavLink> 
 
       <NavLink
         id={_id}

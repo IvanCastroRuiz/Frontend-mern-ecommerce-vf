@@ -76,7 +76,7 @@ const EditarProductos = ({ id, setModalEditar }) => {
               X
             </button>
 
-            <h1 className="font-bold text-6xl uppercase text-center w-full mx-auto mt-24">
+            <h1 className="font-bold text-6xl uppercase text-center w-full mx-auto">
               Edita tu <span className="text-sky-700">producto</span>
             </h1>
 
