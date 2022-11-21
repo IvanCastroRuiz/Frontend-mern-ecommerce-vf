@@ -22,7 +22,7 @@ const ProductosProvider = ({ children }) => {
             } catch (error) {
                 console.log("Error: " + error.message);
             }
-          };
+        };
           obtenerProductos();   
     }, [productos])
 

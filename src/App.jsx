@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { AuthProvider  } from './context/AuthProvider';
 import { UsuariosProvider } from './context/UsuariosProvider'
 import { ProductosProvider } from './context/ProductosProvider'
+import { VentaProvider } from './context/VentaProvider'
 
 // Layout  (LayoutAuth)
 import LayoutAuth from './Layout/LayoutAuth'
@@ -25,6 +26,9 @@ import ListaProductos from './pages/productos/ListaProductos'
 import FormularioProductos from './pages/productos/FormularioProductos'
 import DetalleProducto from './pages/productos/DetalleProducto'
 
+// pages (ventas)
+import DetalleVenta from './pages/venta/DetalleVenta'
+
 
 function App() {
 
@@ -33,30 +37,36 @@ function App() {
       <AuthProvider>
         <UsuariosProvider>
           <ProductosProvider>
-            <Routes>
-              {/* RUTAS PUBLICAS */}
-              <Route path='/' element={<LayoutAuth />}>
-                <Route index element={<Login />} />
-                <Route path='registro' element={<Registro />} />
-                <Route path='olvide-password' element={<OlvidePassword />} />
-                <Route path='confirmar/:id' element={<Confirmar />} />
-              </Route>
+            <VentaProvider>
+              <Routes>
+                {/* RUTAS PUBLICAS */}
+                <Route path='/' element={<LayoutAuth />}>
+                  <Route index element={<Login />} />
+                  <Route path='registro' element={<Registro />} />
+                  <Route path='olvide-password' element={<OlvidePassword />} />
+                  <Route path='confirmar/:id' element={<Confirmar />} />
+                </Route>
 
-              {/* Rutas Protegidas */}
-              <Route path='/perfil' element={<RutaProtegida />}>
-                  <Route index element={<Perfil />} />
-                  <Route path="cambiar-password" element={<CambiarPassword/>} />
-              </Route>
-
-
-              <Route path='/productos' element={<RutaProtegida />}>
-                <Route index element={<ListaProductos />} />
-                <Route path='agregar-producto' element={<FormularioProductos />} />
-                <Route path='detalle-producto/:id' element={<DetalleProducto />} />
-              </Route>
+                {/* Rutas Protegidas */}
+                <Route path='/perfil' element={<RutaProtegida />}>
+                    <Route index element={<Perfil />} />
+                    <Route path="cambiar-password" element={<CambiarPassword/>} />
+                </Route>
 
 
-            </Routes>
+                <Route path='/productos' element={<RutaProtegida />}>
+                  <Route index element={<ListaProductos />} />
+                  <Route path='agregar-producto' element={<FormularioProductos />} />
+                  <Route path='detalle-producto/:id' element={<DetalleProducto />} />
+                </Route>
+
+
+                <Route path='/venta' element={<RutaProtegida />}>
+                  <Route index element={<DetalleVenta />} />
+                </Route>
+
+              </Routes>
+            </VentaProvider>
           </ProductosProvider>
         </UsuariosProvider>
       </AuthProvider>
