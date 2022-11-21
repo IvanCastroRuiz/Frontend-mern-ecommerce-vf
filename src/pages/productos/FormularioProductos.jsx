@@ -1,52 +1,53 @@
-import { useState } from "react";
+import { Navigate  } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import Swal from 'sweetalert2';
 
 import useProductos from "../../hooks/useProductos";
 
 import Navbar from "../../components/Navbar";
+import Alerta from '../../components/Alerta';
 
 const FormularioProductos = () => {
-  const { submitProducto } = useProductos();
 
-  const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [precio, setPrecio] = useState("");
-  const [stock, setStock] = useState("");
+  const { register, handleSubmit } = useForm();
+  const { submitProducto, guardado } = useProductos();
 
-  const generarId = () =>
-    Math.random().toString(6).substr(5) + Date.now().toString(16).substr(5);
+  const onSubmit = (datos) => {
+    //e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    const formData = new FormData();
 
-    if ([nombre, descripcion, precio, stock].includes("")) {
-      console.log("CAMPOS VACIOS");
-      return;
-    }
+    formData.append("image", datos.file[0]);
+    formData.append("nombre", datos.nombre);
+    formData.append("description", datos.description);
+    formData.append("precio", datos.precio);
+    formData.append("stock", datos.stock);
+    
+    submitProducto(formData);
 
-    submitProducto({ id: generarId(), nombre, descripcion, precio, stock });
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Tu Producto ha sido guardado.',
+      showConfirmButton: false,
+      timer: 1500
+    })
 
-    // Limpiar el formulario, BUGUEADO ARREGLAR!!!!!
-
-    setTimeout(() => {
-      setNombre("");
-      setDescripcion("");
-      setPrecio("");
-      setStock("");
-    }, 500);
   };
 
   return (
     <>
       <Navbar texto="Productos" ruta="" />
       <div className=" w-full justify-center h-5/6 items-center mt-24">
+        {guardado && <Navigate to="/productos"/>} 
         <div className="w-full">
           <h1 className="font-bold text-6xl uppercase text-center w-full mx-auto">
             Registra tus <span className="text-sky-700">productos</span>
           </h1>
 
           <form
-            className="p-4 mx-auto w-96 sm:px-9 mt-8 shadow-md"
-            onSubmit={handleSubmit}
+            className="px-5 mx-auto py-5 sm:px-9 sm:w-5/6 md:w-4/5 lg:w-3/4 shadow-lg bg-white rounded-xl"
+            onSubmit={handleSubmit(onSubmit)}
           >
             <div className="mb-5">
               <label htmlFor="nombre" className="font-medium">
@@ -57,21 +58,21 @@ const FormularioProductos = () => {
                 id="nombre"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="Nombre Producto"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                {...register("nombre", { required: true })}
+                required
               />
             </div>
             <div className="mb-5">
               <label htmlFor="descripcion" className="font-medium">
                 Descripcion
               </label>
-              <input
+              <textarea
                 type="text"
                 id="descripcion"
-                className="block placeholder-slate-400 p-2 w-full bg-slate-100"
+                className="block placeholder-slate-400 p-2 w-full bg-slate-100 h-52"
                 placeholder="Descripcion Productos"
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
+                {...register("description", { required: true })}
+                required
               />
             </div>
             <div className="mb-5">
@@ -83,8 +84,8 @@ const FormularioProductos = () => {
                 id="precio"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="Precio Producto"
-                value={precio}
-                onChange={(e) => setPrecio(e.target.value)}
+                {...register("precio", { required: true })}
+                required
               />
             </div>
             <div className="mb-5">
@@ -96,13 +97,24 @@ const FormularioProductos = () => {
                 id="stock"
                 className="block placeholder-slate-400 p-2 w-full bg-slate-100"
                 placeholder="Stock Producto"
-                value={stock}
-                onChange={(e) => setStock(e.target.value)}
+                {...register("stock", { required: true })}
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label htmlFor="stock" className="font-medium">
+                Imagen
+              </label>
+              <input
+                type="file"
+                id="image"
+                className="block placeholder-slate-400 p-2 w-full bg-slate-100"
+                {...register("file")} 
               />
             </div>
             <input
               type="submit"
-              value="Ingresar"
+              value="Guardar"
               className="uppercase bg-sky-700 text-white p-2 rounded-md w-full cursor-pointer"
             />
           </form>

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import useAuth from '../hooks/useAuth';
 import logo from '../assets/logo-empresa.png'
 import svg60 from '../assets/svg/icons8-menu-30.svg'
 
 const Navbar = ({ texto, ruta, id, perfil }) => {
 
+  const { cerrarSesion } = useAuth();
   const [ver, setVer] = useState(false)
 
   const mostrarBarra = n => ver ? setVer(false) : setVer(true)
@@ -152,7 +154,10 @@ const Navbar = ({ texto, ruta, id, perfil }) => {
               type="button"
               className="bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors"
             >
-              <Link to={"/"} className="p-2 w-full flex justify-center">
+              <Link 
+                to={"/"} className="p-2 w-full flex justify-center"
+                onClick={cerrarSesion}  
+              >
                 Cerrar Sesion
               </Link>
             </button>
