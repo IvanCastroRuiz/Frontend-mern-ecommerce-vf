@@ -28,6 +28,7 @@ import DetalleProducto from './pages/productos/DetalleProducto'
 
 // pages (ventas)
 import DetalleVenta from './pages/venta/DetalleVenta'
+import ListaVentas from './pages/venta/ListaVentas'
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
 
                 <Route path='/venta' element={<RutaProtegida />}>
                   <Route index element={<DetalleVenta />} />
+                  <Route path='compras-realizadas' element={<ListaVentas />} />
                 </Route>
 
               </Routes>

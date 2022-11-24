@@ -21,7 +21,9 @@ const ListaProductos = () => {
             {productos.length ? (
               <>
                 {productos.map((producto) => (
-                  <Producto key={producto.id} producto={producto} />
+                  <Producto 
+                    key={producto.id} 
+                    producto={producto} />
                 ))}
               </>
             ) : (

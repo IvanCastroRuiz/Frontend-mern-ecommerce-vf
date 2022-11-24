@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
+import useVenta from '../../hooks/useVenta'
 
 const Producto = ({ producto }) => {
   const { _id, nombre, precio, stock, image } = producto;
+
+  const { añadirProducto } = useVenta()
   //console.log(producto);
 
   return (
@@ -30,7 +33,8 @@ const Producto = ({ producto }) => {
       </NavLink>
       <button
         type="button"
-        className="bg-sky-500 text-white p-2  uppercase  font-medium w-full hover:bg-sky-700 transition-colors"
+        className='bg-sky-500 text-white p-2  uppercase  font-medium w-full hover:bg-sky-700 transition-colors'
+        onClick={e => añadirProducto(_id)}
       >
         Añadir al Carrito
       </button>

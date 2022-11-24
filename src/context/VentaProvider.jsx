@@ -1,42 +1,44 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from '../config/axios';
 
-import useProductos from "../hooks/useProductos";
-
 const VentaContext = createContext()
+
+import useProductos from "../hooks/useProductos";
 
 const VentaProvider = ({ children }) => {
 
-    const { productos } = useProductos();
+    const [productos, setProductos] = useState(JSON.parse(localStorage.getItem('productos')) ?? []);
+    //const [productos, setProductos] = useProductos();
 
-    const [venta, setVenta] = useState([])
+    const [ventas, setVentas] = useState([])
     // JSON.parse(localStorage.getItem('venta')) ?? []
     const [ventaState, setVentaState] = useState({})
+
     const [existe, setExiste] = useState(false)
     const [precioTotal, setPrecioTotal] = useState(0)
 
     useEffect(() => {
         const obtenerVentas = async () =>{
             try {
-      
-                const { data } = await clienteAxios('/ventas/get');
-                setVenta(data);
-                // console.log(data);
-        
+               const { data } = await clienteAxios('/ventas/get');
+               setVentas(data);
+               console.log(data);
             } catch (error) {
                 console.log("Error: " + error.message);
             }
         };
-        obtenerVentas(); 
-    }, [venta])
+          obtenerVentas();   
+    }, [ventas])
 
-    const añadirProducto = id => {
+    const añadirProducto = _id => {
 
         //Buscar producto existente
-        const productoFiltrado = productos.find(producto => producto.id == id)
+        //const productoFiltrado = productos.find(producto => producto._id == _id);
+        //console.log(productoFiltrado);
+        //console.log(productos);
 
-        setPrecioTotal(Number(productoFiltrado.precio) + Number(precioTotal))
-        // console.log(precioTotal)
+        /*setPrecioTotal(Number(productoFiltrado.precio) + Number(precioTotal))
+        
 
         if (!productoFiltrado) {
             return console.log('Producto no encontrado')
@@ -46,25 +48,21 @@ const VentaProvider = ({ children }) => {
             nombre: productoFiltrado.nombre,
             descripcion: productoFiltrado.descripcion,
             precio: productoFiltrado.precio,
-            cantidad: 0
+            cantidad: 1
         }
-
-        // const precioTotal = venta.map(items => items.precio)
-        // console.log(precioTotal)
-        // setPrecioTotal(precioTotal)
 
         setVentaState(objetoVenta)
         venta.find(item => ventaState.id === item.id ? setExiste(true) : setVenta(false))
-        // console.log(existe)
-        setVenta([...venta, ventaState])
-        // setVentaState({})
+        
+        setVenta([...venta, ventaState])*/
+        
     }
 
     return (
         <VentaContext.Provider
             value={{
                 añadirProducto,
-                venta, 
+                ventas, 
                 precioTotal
             }}>
 
