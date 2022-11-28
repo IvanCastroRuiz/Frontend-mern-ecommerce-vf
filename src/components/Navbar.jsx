@@ -18,7 +18,7 @@ const Navbar = ({ texto, ruta, id, perfil, verVenta, verCompras }) => {
   const mostrarBarra = (n) => (ver ? setVer(false) : setVer(true));
   const mostrarAside = (n) => (asideVentas ? setAsideVentas(false) : setAsideVentas(true));
 
-  const { ventasProductos } = useVenta();
+  const { articulosCarritos } = useVenta();
 
   return (
     <nav className="shadow bg-slate-200 mb-5 flex fixed z-10 w-full top-0">
@@ -32,7 +32,7 @@ const Navbar = ({ texto, ruta, id, perfil, verVenta, verCompras }) => {
         <div className="flex gap-3">
           {!verVenta && (
             <button type="button" className="hover:scale-110 text-black p-2  flex items-center cursor-pointer font-medium hover:border-b-blue-500 hover:border-b-2 transition-all" onClick={mostrarAside}>
-              <span className="bg-sky-700 text-white rounded-full px-2 top-10">{ventasProductos.length}</span>
+              <span className="bg-sky-700 text-white rounded-full px-2 top-10">{articulosCarritos.length}</span>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"

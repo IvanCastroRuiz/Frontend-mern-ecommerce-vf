@@ -6,8 +6,8 @@ import useVenta from "../../hooks/useVenta";
 import ProductoVenta from "./ProductoVenta";
 
 const AsideVenta = ({ verAside, setAsideVentas }) => {
-  const { ventasProductos, precioTotal } = useVenta();
-  // console.log(ventasProductos)
+  const { articulosCarritos, precioTotal } = useVenta();
+  // console.log(articulosCarritos)
   return (
     <div
       div
@@ -31,13 +31,14 @@ const AsideVenta = ({ verAside, setAsideVentas }) => {
         </div>
         <div className="my-5 ">
           <div className="w-full p-2 ">
-            {precioTotal > 0 ? (
+            { articulosCarritos ? (
               <>
-                {ventasProductos.map((item) => (
+                {articulosCarritos.map((item) => (
                   <ProductoVenta 
                     key={item._id} 
                     producto={item} 
                   />
+              //    console.log(item)
                 ))}
               </>
             ) : (

@@ -7,10 +7,9 @@ import useProductos from "../hooks/useProductos";
 
 const VentaProvider = ({ children }) => {
 
-    //const [productos, setProductos] = useState(JSON.parse(localStorage.getItem('productos')) ?? []);
     const {productos, setProductos, obtenerProducto} = useProductos();
     const [ventas, setVentas] = useState([])
-    const [ventasProductos, setVentasProductos] = useState([])
+    const [articulosCarritos, setarticulosCarritos] = useState([])
     // JSON.parse(localStorage.getItem('venta')) ?? []
     const [ventaState, setVentaState] = useState({})
 
@@ -22,7 +21,6 @@ const VentaProvider = ({ children }) => {
             try {
                const { data } = await clienteAxios('/ventas/get');
                setVentas(data);
-            //    console.log(data);
             } catch (error) {
                 console.log("Error: " + error.message);
             }
@@ -38,30 +36,49 @@ const VentaProvider = ({ children }) => {
         setPrecioTotal(Number(productoFiltrado.precio) + Number(precioTotal))
         
 
-        if (!productoFiltrado) {
-            return console.log('Producto no encontrado')
-        }
-        const objetoVenta = {
-            id: productoFiltrado._id,
+        // if (!productoFiltrado) {
+        //     return console.log('Producto no encontrado')
+        // }
+        const infArticulo = {
+            _id: productoFiltrado._id,
             nombre: productoFiltrado.nombre,
             description: productoFiltrado.description,
             precio: productoFiltrado.precio,
+            url: productoFiltrado.image.url,
             cantidad: 1
         }
-
-        setVentaState(objetoVenta)
-        console.log(ventaState);
-        ventasProductos.find(item => ventaState._id === item._id ? setExiste(true) : setVentas(false))
         
-        setVentasProductos([...ventasProductos, ventaState])
-        console.log(ventasProductos);
+        setVentaState(infArticulo)
+        // Revisa si un elemento ya existe en el carrito
+        let exist
+        articulosCarritos.find(item => ventaState._id === item._id ? exist = true : exist=false)
+
+        if(exist){
+            //Actualizamos la cantidad
+
+            console.log("Si existe");
+            const curso = articulosCarritos.map( curso => {
+                if(curso._id === infArticulo._id){
+                    curso.cantidad++; // Retorna el objeto actualizado
+                }
+                return curso
+            } );
+            setarticulosCarritos([...curso]);
+        }else{
+            //Agregar elemento al arreglo del carrito de compra 
+            //utilizando Spread Operator
+            setarticulosCarritos([...articulosCarritos, infArticulo])    
+        }
+
+        console.log(articulosCarritos);
+       
     }
 
     return (
         <VentaContext.Provider
             value={{
                 añadirProducto,
-                ventasProductos, 
+                articulosCarritos, 
                 precioTotal
             }}>
 

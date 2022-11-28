@@ -4,8 +4,8 @@ import producto1 from "../../assets/producto.jpg";
 
 const ProductoVenta = ({ producto, verVenta }) => {
   
-  const { _id, nombre, descripcion, precio, image } = producto;
-  console.log(producto);
+  const { _id, nombre, descripcion, precio, url, cantidad } = producto;
+  //console.log(url);
   
   return (
     <div
@@ -17,7 +17,7 @@ const ProductoVenta = ({ producto, verVenta }) => {
     >
       <div className={verVenta ? "flex w-full" : "flex"}>
         <div className="w-36 flex items-center">
-          <img src={producto1} alt="imagen producto" className="h-44" />
+          <img src={url ? `${url}` : producto1} alt="imagen producto" className="h-44" />
         </div>
         <div
           className={

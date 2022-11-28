@@ -7,7 +7,7 @@ import FilaVenta from './FilaVenta'
 
 const ListaVentas = () => {
 
-  const { ventas } = useVentas()
+  const { articulosCarritos } = useVentas()
   const [verListaVenta, setVerListaVenta] = useState(false)
 
   useEffect(() => setVerListaVenta(true), []);
@@ -43,9 +43,9 @@ const ListaVentas = () => {
                 <tbody>
                  <FilaVenta/>
                   {
-                      ventas.length ? (
+                      articulosCarritos.length ? (
                         <>
-                          {ventas.map((venta) => (
+                          {articulosCarritos.map((venta) => (
                             <FilaVenta 
                               key={venta._id} 
                               venta={venta} />
