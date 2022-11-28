@@ -5,17 +5,20 @@ import svg60 from "../assets/svg/icons8-menu-30.svg";
 
 import AsideVenta from "../pages/venta/AsideVenta";
 
+import useAuth from "../hooks/useAuth";
 import useVenta from "../hooks/useVenta";
-import VentaContext from "../context/VentaProvider";
+
 
 const Navbar = ({ texto, ruta, id, perfil, verVenta, verCompras }) => {
+  
+  const { cerrarSesion }  = useAuth();
   const [ver, setVer] = useState(false);
   const [asideVentas, setAsideVentas] = useState(false);
 
   const mostrarBarra = (n) => (ver ? setVer(false) : setVer(true));
   const mostrarAside = (n) => (asideVentas ? setAsideVentas(false) : setAsideVentas(true));
 
-  const { ventas } = useVenta()
+  const { ventasProductos } = useVenta();
 
   return (
     <nav className="shadow bg-slate-200 mb-5 flex fixed z-10 w-full top-0">
@@ -29,7 +32,7 @@ const Navbar = ({ texto, ruta, id, perfil, verVenta, verCompras }) => {
         <div className="flex gap-3">
           {!verVenta && (
             <button type="button" className="hover:scale-110 text-black p-2  flex items-center cursor-pointer font-medium hover:border-b-blue-500 hover:border-b-2 transition-all" onClick={mostrarAside}>
-              <span className="bg-sky-700 text-white rounded-full px-2 top-10">{ventas.length}</span>
+              <span className="bg-sky-700 text-white rounded-full px-2 top-10">{ventasProductos.length}</span>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +104,11 @@ const Navbar = ({ texto, ruta, id, perfil, verVenta, verCompras }) => {
             type="button"
             className="bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors"
           >
-            <Link to={"/"} className="p-2 text-center w-full flex">
+            <Link 
+              to={"/"} 
+              className="p-2 text-center w-full flex"
+              onClick={cerrarSesion}  
+            >
               Cerrar Sesion
             </Link>
           </button>

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Swal from 'sweetalert2';
 
 const FilaVenta = ({venta}) => {
-    console.log(venta);
+    // console.log(venta);
 
     //const { _id  } = venta;
     //console.log(_id);

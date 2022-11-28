@@ -41,13 +41,13 @@ const ProductosProvider = ({ children }) => {
         }
     };
 
-    const obtenerProducto = async (id) =>{
+    const obtenerProducto = async (id) =>{      
         try {
             const { data } = await clienteAxios(`/productos/get/${id}`);  
             setProductoState(data);
-          } catch (error) {
-              console.log("Error: " + error.message);
-          }
+        } catch (error) {
+                console.log("Error: " + error.message);
+        }
     };
 
     const deleteProducto = async (id) =>{

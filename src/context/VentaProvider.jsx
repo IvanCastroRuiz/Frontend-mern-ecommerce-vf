@@ -7,10 +7,10 @@ import useProductos from "../hooks/useProductos";
 
 const VentaProvider = ({ children }) => {
 
-    const [productos, setProductos] = useState(JSON.parse(localStorage.getItem('productos')) ?? []);
-    //const [productos, setProductos] = useProductos();
-
+    //const [productos, setProductos] = useState(JSON.parse(localStorage.getItem('productos')) ?? []);
+    const {productos, setProductos, obtenerProducto} = useProductos();
     const [ventas, setVentas] = useState([])
+    const [ventasProductos, setVentasProductos] = useState([])
     // JSON.parse(localStorage.getItem('venta')) ?? []
     const [ventaState, setVentaState] = useState({})
 
@@ -22,7 +22,7 @@ const VentaProvider = ({ children }) => {
             try {
                const { data } = await clienteAxios('/ventas/get');
                setVentas(data);
-               console.log(data);
+            //    console.log(data);
             } catch (error) {
                 console.log("Error: " + error.message);
             }
@@ -31,38 +31,37 @@ const VentaProvider = ({ children }) => {
     }, [ventas])
 
     const añadirProducto = _id => {
-
+        
         //Buscar producto existente
-        //const productoFiltrado = productos.find(producto => producto._id == _id);
-        //console.log(productoFiltrado);
-        //console.log(productos);
-
-        /*setPrecioTotal(Number(productoFiltrado.precio) + Number(precioTotal))
+        const productoFiltrado = productos.find(producto => producto._id == _id);
+        
+        setPrecioTotal(Number(productoFiltrado.precio) + Number(precioTotal))
         
 
         if (!productoFiltrado) {
             return console.log('Producto no encontrado')
         }
         const objetoVenta = {
-            id: productoFiltrado.id,
+            id: productoFiltrado._id,
             nombre: productoFiltrado.nombre,
-            descripcion: productoFiltrado.descripcion,
+            description: productoFiltrado.description,
             precio: productoFiltrado.precio,
             cantidad: 1
         }
 
         setVentaState(objetoVenta)
-        venta.find(item => ventaState.id === item.id ? setExiste(true) : setVenta(false))
+        console.log(ventaState);
+        ventasProductos.find(item => ventaState._id === item._id ? setExiste(true) : setVentas(false))
         
-        setVenta([...venta, ventaState])*/
-        
+        setVentasProductos([...ventasProductos, ventaState])
+        console.log(ventasProductos);
     }
 
     return (
         <VentaContext.Provider
             value={{
                 añadirProducto,
-                ventas, 
+                ventasProductos, 
                 precioTotal
             }}>
 

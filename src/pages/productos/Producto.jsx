@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 import useVenta from '../../hooks/useVenta'
+import useProductos from "../../hooks/useProductos";
 
 const Producto = ({ producto }) => {
   const { _id, nombre, precio, stock, image } = producto;
 
   const { añadirProducto } = useVenta()
+  
   //console.log(producto);
 
   return (
