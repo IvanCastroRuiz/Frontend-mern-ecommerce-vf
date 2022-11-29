@@ -6,11 +6,16 @@ import useVenta from "../../hooks/useVenta";
 import ProductoVenta from "./ProductoVenta";
 
 const AsideVenta = ({ verAside, setAsideVentas }) => {
-  const { articulosCarritos, precioTotal } = useVenta();
-  // console.log(articulosCarritos)
+  const { articulosCarritos, precioTotal, setArticulosCarritos, setPrecioTotal } = useVenta();
+
+
+  const vaciarCarrito = () => {
+    setArticulosCarritos([]);
+    setPrecioTotal(0);
+  };
+  
   return (
     <div
-      div
       className={`${
         verAside
           ? " absolute top-20 right-0 bg-slate-200 p-4 overflow-auto z-10 w-full md:w-3/4 lg:w-2/3 mb-96 flex flex-col justify-between h-[37rem]"
@@ -59,8 +64,24 @@ const AsideVenta = ({ verAside, setAsideVentas }) => {
         type="button"
         className="flex bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors w-full"
       >
-        <Link to="/venta" className="p-2 w-full capitalize">
+        <Link 
+          to="/venta" 
+          className="p-2 w-full capitalize"
+        >
           Ver detalles del pedido
+        </Link>
+      </button>
+
+      <button
+        type="button"
+        className="flex bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors w-full mt-2"
+        onClick={vaciarCarrito}
+      >
+        <Link 
+          to="/productos" 
+          className="p-2 w-full capitalize"
+        >
+          Vaciar Carrito
         </Link>
       </button>
     </div>

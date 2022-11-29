@@ -1,12 +1,12 @@
-import useState from "react";
 
+import useVenta from "../../hooks/useVenta";
 import producto1 from "../../assets/producto.jpg";
 
 const ProductoVenta = ({ producto, verVenta }) => {
-  
+  const { eliminarProducto } = useVenta();
   const { _id, nombre, descripcion, precio, url, cantidad } = producto;
   //console.log(url);
-  
+
   return (
     <div
       className={
@@ -16,8 +16,12 @@ const ProductoVenta = ({ producto, verVenta }) => {
       }
     >
       <div className={verVenta ? "flex w-full" : "flex"}>
-        <div className="w-36 flex items-center">
-          <img src={url ? `${url}` : producto1} alt="imagen producto" className="h-44" />
+        <div className="w-36 flex items-center px-2 py-2 lg:w-44">
+          <img
+            src={url ? `${url}` : producto1}
+            alt="imagen producto"
+            className="h-44"
+          />
         </div>
         <div
           className={
@@ -57,6 +61,7 @@ const ProductoVenta = ({ producto, verVenta }) => {
         className={`${
           verVenta && "w-full lg:w-24"
         } bg-red-700 p-3 uppercase text-white font-medium hover:bg-red-500`}
+        onClick={e => eliminarProducto(_id)}
       >
         Eliminar
       </button>
