@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import useVenta from '../../hooks/useVenta'
-import useProductos from "../../hooks/useProductos";
+import { formatearCantidad } from '../../helpers/formatearCantidad';
 
 const Producto = ({ producto }) => {
   const { _id, nombre, precio, stock, image } = producto;
@@ -26,7 +26,7 @@ const Producto = ({ producto }) => {
         </div>
         <div className="my-3">
           <p className="font-bold text-lg text-ellipsis overflow-hidden">
-            Precio : <span className="font-normal block">${precio}</span>{" "}
+            Precio : <span className="font-normal block">{formatearCantidad(precio)}</span>{" "}
           </p>
           <p className="font-bold text-lg">
             Stock : <span className="font-normal">{stock}</span>{" "}

@@ -1,4 +1,4 @@
-import React from "react";
+import { formatearCantidad } from '../../helpers/formatearCantidad';
 
 import { Link } from "react-router-dom";
 import useVenta from "../../hooks/useVenta";
@@ -7,7 +7,6 @@ import ProductoVenta from "./ProductoVenta";
 
 const AsideVenta = ({ verAside, setAsideVentas }) => {
   const { articulosCarritos, precioTotal, setArticulosCarritos, setPrecioTotal } = useVenta();
-
 
   const vaciarCarrito = () => {
     setArticulosCarritos([]);
@@ -43,7 +42,7 @@ const AsideVenta = ({ verAside, setAsideVentas }) => {
                     key={item._id} 
                     producto={item} 
                   />
-              //    console.log(item)
+
                 ))}
               </>
             ) : (
@@ -55,7 +54,7 @@ const AsideVenta = ({ verAside, setAsideVentas }) => {
           <p className="w-full text-center font-bold text-xl  mt-2 uppercase text-sky-700 flex justify-between px-4">
             {" "}
             <i>SubTotal : </i>{" "}
-            <span className="font-medium text-black">$ {precioTotal}</span>
+            <span className="font-medium text-black">{formatearCantidad(precioTotal)}</span>
           </p>
         </div>
       </div>

@@ -7,7 +7,7 @@ import FilaVenta from './FilaVenta'
 
 const ListaVentas = () => {
 
-  const { articulosCarritos } = useVentas()
+  const { ventas } = useVentas()
   const [verListaVenta, setVerListaVenta] = useState(false)
 
   useEffect(() => setVerListaVenta(true), []);
@@ -35,29 +35,35 @@ const ListaVentas = () => {
                     <th className='w-24'>
                       <span className='text-sky-700 uppercase text-xl'>Fecha del Pedido</span>
                     </th>
+                    <th className='w-24'>
+                      <span className='text-sky-700 uppercase text-xl'>Valor Total</span>
+                    </th>
                     <th className='w-24 m'>
                       <span className='text-sky-700 uppercase text-xl'>Estado</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                 <FilaVenta/>
                   {
-                      articulosCarritos.length ? (
+                      ventas.length > 0 ? (
                         <>
-                          {articulosCarritos.map((venta) => (
-                            <FilaVenta 
-                              key={venta._id} 
-                              venta={venta} />
-                          ))}
+                          <tbody>
+                            {
+                              ventas.map((venta) => (
+                                <FilaVenta 
+                                  key={venta._id} 
+                                  venta={venta} 
+                                />
+                              ))
+                            }
+                          </tbody>
                         </>
-                      ) : (
-                        <p className="mt-10 shadow-lg w-full text-center p-5 uppercase font-bold text-2xl">
-                          No hay Productos
-                        </p>
-                      )
+                        ) : (
+                          <p className="mt-10 shadow-lg w-full text-center p-5 uppercase font-bold text-2xl">
+                            No hay Productos
+                          </p>
+                        )
                   }
-                </tbody>
+                
               </table>
 
             </div>

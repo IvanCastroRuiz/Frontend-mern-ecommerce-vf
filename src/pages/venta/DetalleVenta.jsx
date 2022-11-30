@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
+import { formatearCantidad } from '../../helpers/formatearCantidad';
 import Navbar from "../../components/Navbar";
 import ProductoVenta from "./ProductoVenta";
 
@@ -10,7 +11,7 @@ const DetalleVenta = () => {
 
   useEffect(() => setVerVenta(true), []);
 
-  const { articulosCarritos, precioTotal } = useVenta();
+  const { articulosCarritos, precioTotal, registrarVenta } = useVenta();
 
   return (
     <>
@@ -69,14 +70,20 @@ const DetalleVenta = () => {
                     <span 
                       className="font-medium block text-black"
                     >
-                      $ {precioTotal}
+                     {formatearCantidad(precioTotal)}
                     </span>
                   </p>
                 </div>
                 <button 
                   className="bg-sky-700 text-white rounded-lg uppercase font-medium hover:bg-sky-500 transition-colors p-2"
+                  onClick={registrarVenta}
                 >
-                  enviar
+                  <Link 
+                    to={precioTotal === 0 ? "/productos" : "/venta/compras-realizadas"  }
+                    className="p-2 w-full capitalize"
+                  >
+                    Venta
+                  </Link>
                 </button>
               </div>
             </div>

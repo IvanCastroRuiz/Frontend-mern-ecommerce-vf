@@ -1,12 +1,16 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import useAuth from '../../hooks/useAuth'
+import useVenta from "../../hooks/useVenta";
+import { formatearFecha  } from '../../helpers/formatearFecha';
+import { formatearCantidad } from '../../helpers/formatearCantidad';
 
 const FilaVenta = ({ venta }) => {
-  // console.log(venta);
-
-  //const { _id  } = venta;
-  //console.log(_id);
-  const [vigente, setVigente] = useState(true);
+  const { cancelarVenta } = useVenta();
+  const { auth } = useAuth();
+  const { _id, createdAt, total, estado  } = venta;
+  // console.log(_id);
+  const [vigente, setVigente] = useState( estado === 'vigente' ? true : false  );
 
   const showSwal = (e) => {
     if (vigente) {
@@ -18,6 +22,7 @@ const FilaVenta = ({ venta }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           setVigente(false);
+          cancelarVenta(_id);
         } else if (result.isDenied) {
           setVigente(true);
         }
@@ -28,13 +33,16 @@ const FilaVenta = ({ venta }) => {
   return (
     <tr className="text-center bg-slate-100">
       <td>
-        <span className="font-medium text-lg">121321321</span>
+        <span className="font-small">{_id}</span>
       </td>
       <td>
-        <span className="font-medium text-lg">Ivan Castro</span>
+        <span className="font-medium text-lg">{auth.usuario.nombre}</span>
       </td>
       <td>
-        <span className="font-medium text-lg">21/11/2022</span>
+        <span className="font-medium text-lg">{formatearFecha(createdAt)}</span>
+      </td>
+      <td>
+        <span className="font-medium text-lg">{formatearCantidad(total)}</span>
       </td>
       <td className=" flex justify-center items-center p-3">
         <button
@@ -48,11 +56,11 @@ const FilaVenta = ({ venta }) => {
         >
           {vigente ? (
             <p>
-              Vigente <i class="bi bi-clipboard-check"></i>
+              Vigente <i className="bi bi-clipboard-check"></i>
             </p>
           ) : (
             <p>
-              Cancelado <i class="bi bi-x-circle"></i>
+              Cancelado <i className="bi bi-x-circle"></i>
             </p>
           )}
         </button>
