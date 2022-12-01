@@ -42,15 +42,6 @@ const ProductoVenta = ({ producto, verVenta }) => {
             </span>
           </p>
 
-          {verVenta && (
-            <p className="font-medium text-base uppercase break-words overflow-hidden h-20">
-              {" "}
-              Descripcion :{" "}
-              <span className="font-normal block normal-case ">
-                {description}
-              </span>
-            </p>
-          )}
 
           <p className="font-medium  text-base uppercase">
             Cantidad : <span className="font-normal ">{cantidad}</span>

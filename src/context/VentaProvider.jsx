@@ -76,15 +76,12 @@ const VentaProvider = ({ children }) => {
             Swal.fire('No tiene articulos en su carrito');
             return;
         };
-
         // Lleno el objeto
         const venta = {
             cliente: usuario._id,
             articulos: articulosCarritos,
             total:precioTotal
-        }
-     
-
+        };
         try {
       
             const { data } = await clienteAxios.post('/ventas/create', venta);
@@ -93,6 +90,14 @@ const VentaProvider = ({ children }) => {
             setVentaState({});
             setPrecioTotal(0);
             setArticulosCarritos([]);
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: `Venta registrada con exito id - ${data._id}`,
+                showConfirmButton: false,
+                timer: 1500
+              })
 
         } catch (error) {
             console.log("Error: " + error.message);
@@ -111,19 +116,18 @@ const VentaProvider = ({ children }) => {
         }
     };
 
-
     return (
         <VentaContext.Provider
             value={{
-                añadirProducto,
                 articulosCarritos, 
                 precioTotal,
+                ventas,
                 setArticulosCarritos,
                 setPrecioTotal,
                 eliminarProducto,
                 registrarVenta,
-                ventas,
-                cancelarVenta
+                cancelarVenta,
+                añadirProducto,
             }}>
 
             {children}
